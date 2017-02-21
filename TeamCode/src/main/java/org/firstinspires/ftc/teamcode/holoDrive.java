@@ -62,14 +62,25 @@ public class holoDrive extends LinearOpMode{
             //      1/√2   ,     1/√2     |          -1/√2      ,    1/√2     |         1   ,    1
             //                            |
             //  uses rounded value of 1/√2 as calculating it takes too much processing power
-            leftFrontPower = (HORIZONTAL_COEFF * j1x * -0.7071) + (VERTICAL_COEFF * j1y * -0.7071) + (TURN_COEFF * j2x * 1);
-            rightFrontPower = (HORIZONTAL_COEFF * j1x * -0.7071) + (VERTICAL_COEFF * j1y * 0.7071) + (TURN_COEFF * j2x * 1);
-            leftBackPower = (HORIZONTAL_COEFF * j1x * 0.7071) + (VERTICAL_COEFF * j1y * -0.7071) + (TURN_COEFF * j2x * 1);
-            rightBackPower = (HORIZONTAL_COEFF * j1x * 0.7071) + (VERTICAL_COEFF * j1y * 0.7071) + (TURN_COEFF * j2x * 1);
+
+            if (controlToggle == -1){
+                leftFrontPower = (HORIZONTAL_COEFF * j1x * -0.7071) + (VERTICAL_COEFF * j1y * -0.7071) + (TURN_COEFF * j2x * 1);
+                rightFrontPower = (HORIZONTAL_COEFF * j1x * -0.7071) + (VERTICAL_COEFF * j1y * 0.7071) + (TURN_COEFF * j2x * 1);
+                leftBackPower = (HORIZONTAL_COEFF * j1x * 0.7071) + (VERTICAL_COEFF * j1y * -0.7071) + (TURN_COEFF * j2x * 1);
+                rightBackPower = (HORIZONTAL_COEFF * j1x * 0.7071) + (VERTICAL_COEFF * j1y * 0.7071) + (TURN_COEFF * j2x * 1);
+            } else if (controlToggle == 1) {
+                leftFrontPower = (HORIZONTAL_COEFF * j1x * 0.7071) + (VERTICAL_COEFF * j1y * 0.7071) + (TURN_COEFF * j2x * 1);
+                rightFrontPower = (HORIZONTAL_COEFF * j1x * 0.7071) + (VERTICAL_COEFF * j1y * -0.7071) + (TURN_COEFF * j2x * 1);
+                leftBackPower = (HORIZONTAL_COEFF * j1x * -0.7071) + (VERTICAL_COEFF * j1y * 0.7071) + (TURN_COEFF * j2x * 1);
+                rightBackPower = (HORIZONTAL_COEFF * j1x * -0.7071) + (VERTICAL_COEFF * j1y * -0.7071) + (TURN_COEFF * j2x * 1);
+            }
+
+
+
 
             Range.clip(leftFrontPower, -1, 1);
             Range.clip(rightFrontPower, -1, 1);  // clips values as motor power cannot
-            Range.clip(leftBackPower, -1, 1);    // go above 1 or below -1
+            Range.clip(leftBackPower, -1, 1);    // go above 1 or below -1c v
             Range.clip(rightBackPower, -1, 1);
 
             robot.leftFrontMotor.setPower(leftFrontPower);
@@ -77,6 +88,35 @@ public class holoDrive extends LinearOpMode{
             robot.leftBackMotor.setPower(leftBackPower);
             robot.rightBackMotor.setPower(rightBackPower);
 
+
+            /////////////Single Button Controls/////////////
+
+            if (gamepad2.right_bumper){
+                robot.catapultMotor.setPower(1);
+            } else {
+                robot.catapultMotor.setPower(0);
+            }
+
+
+            if (gamepad2.dpad_up){
+                robot.liftMotor.setPower(1);
+            } else if (gamepad2.dpad_down){
+                robot.liftMotor.setPower(-1);
+            } else {
+                robot.liftMotor.setPower(0);
+            }
+
+            if (gamepad2.a){
+                robot.holdMotor.setPower(1.0);
+            } else if (gamepad2.b) {
+                robot.holdMotor.setPower(-1.0);
+            } else {
+                robot.holdMotor.setPower(0);
+            }
+
+            if (gamepad2.left_bumper) {
+                robot.basketServo.setPosition(1);
+            }
 
 
 
