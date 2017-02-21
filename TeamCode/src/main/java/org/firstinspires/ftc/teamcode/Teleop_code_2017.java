@@ -50,7 +50,6 @@ import com.qualcomm.robotcore.util.Range;
  */
 
 @TeleOp(name="Teleop 2-8-17", group="2017")  // @Autonomous(...) is the other common choice
-//@Disabled
 public class Teleop_code_2017 extends LinearOpMode {
 
 
