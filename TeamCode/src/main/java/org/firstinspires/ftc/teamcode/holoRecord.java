@@ -32,7 +32,10 @@ public class holoRecord extends LinearOpMode{
     double rightFrontPower;
     double rightBackPower;
 
-    int[] posArray = new int[3];
+    int leftFrontPosition;
+    int rightFrontPosition;
+    int leftBackPosition;
+    int rightBackPosition;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -143,31 +146,26 @@ public class holoRecord extends LinearOpMode{
             idle();                                                 // to telemetry
 
             telemetry.addLine("Joystick Data")
-                    .addData("Joy1 X: ", j1x)
-                    .addData("Joy1 Y: ", j1y)
-                    .addData("Joy2 X: ", j2x);
+                    .addData("Joy1 X: ", gamepad1.left_stick_x)
+                    .addData("Joy1 Y: ", -gamepad1.left_stick_y)
+                    .addData("Joy2 X: ", gamepad1.right_stick_x);
 
             telemetry.addLine("leftFront")
-                    .addData("Power: ", leftFrontPower)
-                    .addData("Ticks: ", posArray[0])
-                    .addData("Inches: ", posArray[0] / COUNTS_PER_INCH);
+                    .addData("Ticks: ", leftFrontPosition)
+                    .addData("Inches: ", leftFrontPosition / COUNTS_PER_INCH);
 
             telemetry.addLine("rightFront")
-                    .addData("Power: ", rightFrontPower)
-                    .addData("Ticks: ", posArray[1])
-                    .addData("Inches: ", posArray[1] / COUNTS_PER_INCH);
+                    .addData("Ticks: ", rightFrontPosition)
+                    .addData("Inches: ", rightFrontPosition / COUNTS_PER_INCH);
 
             telemetry.addLine("leftBack")
-                    .addData("Power: ", leftBackPower)
-                    .addData("Ticks: ", posArray[2])
-                    .addData("Inches: ", posArray[2] / COUNTS_PER_INCH);
+                    .addData("Ticks: ", leftBackPosition)
+                    .addData("Inches: ", leftBackPosition / COUNTS_PER_INCH);
 
             telemetry.addLine("rightBack")
-                    .addData("Power: ", rightBackPower)
-                    .addData("Ticks: ", posArray[3])
-                    .addData("Inches: ", posArray[3] / COUNTS_PER_INCH);
+                    .addData("Ticks: ", rightBackPosition)
+                    .addData("Inches: ", rightBackPosition / COUNTS_PER_INCH);
 
-            telemetry.update();
         }
 
     }
@@ -191,10 +189,12 @@ public class holoRecord extends LinearOpMode{
 
         public void endStep() {
 
-            posArray[0] = robot.leftFrontMotor.getCurrentPosition();
-            posArray[1] = robot.rightFrontMotor.getCurrentPosition();
-            posArray[2] = robot.leftBackMotor.getCurrentPosition();
-            posArray[3] = robot.rightBackMotor.getCurrentPosition();
+            leftFrontPosition = robot.leftFrontMotor.getCurrentPosition();
+            rightFrontPosition = robot.rightFrontMotor.getCurrentPosition();
+            leftBackPosition = robot.leftBackMotor.getCurrentPosition();
+            rightBackPosition = robot.rightBackMotor.getCurrentPosition();
+
+            telemetry.update();
 
         }
 

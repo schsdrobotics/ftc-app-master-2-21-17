@@ -257,9 +257,9 @@ public class TeleopRecord extends LinearOpMode {
                     .addData("Ticks: ", rightBackPosition)
                     .addData("Inches: ", rightBackPosition / COUNTS_PER_INCH);
 
-            telemetry.update();
+
         }
-        }
+    }
 
         public void startStep(){
 
@@ -290,6 +290,8 @@ public class TeleopRecord extends LinearOpMode {
             rightFrontPosition = robot.rightFrontMotor.getCurrentPosition();
             leftBackPosition = robot.leftBackMotor.getCurrentPosition();
             rightBackPosition = robot.rightBackMotor.getCurrentPosition();
+
+            telemetry.update();
 
         }
     }
