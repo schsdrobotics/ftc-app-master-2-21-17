@@ -31,58 +31,12 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.hardware.adafruit.BNO055IMU;
-import com.qualcomm.hardware.adafruit.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.robotcore.external.navigation.Position;
-import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 
-import java.util.Locale;
-
-/**
- * This file illustrates the concept of driving a path based on Gyro heading and encoder counts.
- * It uses the common Pushbot hardware class to define the drive on the robot.
- * The code is structured as a LinearOpMode
- * <p>
- * The code REQUIRES that you DO have encoders on the wheels,
- * otherwise you would use: PushbotAutoDriveByTime;
- * <p>
- * This code ALSO requires that you have a Modern Robotics I2C gyro with the name "gyro"
- * otherwise you would use: PushbotAutoDriveByEncoder;
- * <p>
- * This code requires that the drive Motors have been configured such that a positive
- * power command moves them forward, and causes the encoders to count UP.
- * <p>
- * This code uses the RUN_TO_POSITION mode to enable the Motor controllers to generate the run profile
- * <p>
- * <p>
- * <p>
- * In order to calibrate the Gyro correctly, the robot must remain stationary during calibration.
- * This is performed when the INIT button is pressed on the Driver Station.
- * This code assumes that the robot is stationary when the INIT button is pressed.
- * If this is not the case, then the INIT should be performed again.
- * <p>
- * Note: in this example, all angles are referenced to the initial coordinate frame set during the
- * the Gyro Calibration process, or whenever the program issues a resetZAxisIntegrator() call on the Gyro.
- * <p>
- * The angle of movement/rotation is assumed to be a standardized rotation around the robot Z axis,
- * which means that a Positive rotation is Counter Clock Wise, looking down on the field.
- * This is consistent with the FTC field coordinate conventions set out in the document:
- * ftc_app\doc\tutorial\FTC_FieldCoordinateSystemDefinition.pdf
- * <p>
- * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
- */
 
 @Autonomous(name = "PlayBackTest", group = "2017")
 public class PlaybackTest extends LinearOpMode {
@@ -91,7 +45,6 @@ public class PlaybackTest extends LinearOpMode {
     Harderware robot = new Harderware();   // Use a Pushbot's hardware
 
 
-    // State used for updating telemetry
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -99,17 +52,6 @@ public class PlaybackTest extends LinearOpMode {
     static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
     static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double DRIVE_GEAR_REDUCTION = 2.0;     // This is < 1.0 if geared UP
-
-
-    // These constants define the desired driving/control characteristics
-    // The can/should be tweaked to suite the specific robot drive train.
-    static final double DRIVE_SPEED = 0.7;     // Nominal speed for better accuracy.
-    static final double TURN_SPEED = 0.4;     // Nominal half speed for better accuracy.
-
-    static final int REVERSE = -1;
-    static final int FORWARD = 1;
-
 
 
     @Override

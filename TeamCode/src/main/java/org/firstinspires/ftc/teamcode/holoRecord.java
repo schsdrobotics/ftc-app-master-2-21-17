@@ -17,25 +17,32 @@ public class holoRecord extends LinearOpMode{
                                             // from hardware class
 
 
-    static final double VERTICAL_COEFF = 1.0;   // assign constants for altering values for
-    static final double HORIZONTAL_COEFF = 1.0; // degrees of motion
-    static  final double TURN_COEFF = 1.0;
+    private static final double VERTICAL_COEFF = 1.0;   // assign constants for altering values for
+    private static final double HORIZONTAL_COEFF = 1.0; // degrees of motion
+    private static  final double TURN_COEFF = 1.0;
 
-    static final double COUNTS_PER_MOTOR_REV = 1120;    // eg: AndyMark NeverRest Motor Encoder
-    static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
-    static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV) /
+    private static final double COUNTS_PER_MOTOR_REV = 1120;    // eg: AndyMark NeverRest Motor Encoder
+    private static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
+    private static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double DRIVE_GEAR_REDUCTION = 2.0;     // This is < 1.0 if geared UP
 
-    double leftFrontPower;
-    double leftBackPower;          //declare power value variables outside of main loop
-    double rightFrontPower;
-    double rightBackPower;
 
-    int leftFrontPosition;
-    int rightFrontPosition;
-    int leftBackPosition;
-    int rightBackPosition;
+    private double leftFrontPower;
+    private double leftBackPower;          //declare power value variables outside of main loop
+    private double rightFrontPower;
+    private double rightBackPower;
+
+    private int leftFrontPosition;
+    private int rightFrontPosition;
+    private int leftBackPosition;
+    private int rightBackPosition;
+
+    double leftFrontPowerRecord;
+    double leftBackPowerRecord;
+    double rightFrontPowerRecord;
+    double rightBackPowerRecord;
+
+    int recordInterval;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -90,6 +97,8 @@ public class holoRecord extends LinearOpMode{
 
 
 
+
+
             Range.clip(leftFrontPower, -1, 1);
             Range.clip(rightFrontPower, -1, 1);  // clips values as motor power cannot
             Range.clip(leftBackPower, -1, 1);    // go above 1 or below -1c v
@@ -101,34 +110,41 @@ public class holoRecord extends LinearOpMode{
             robot.rightBackMotor.setPower(rightBackPower);
 
 
-//            /////////////Single Button Controls/////////////
-//
-//            if (gamepad2.right_bumper){
-//                robot.catapultMotor.setPower(1);
-//            } else {
-//                robot.catapultMotor.setPower(0);
-//            }
-//
-//
-//            if (gamepad2.dpad_up){
-//                robot.liftMotor.setPower(1);
-//            } else if (gamepad2.dpad_down){
-//                robot.liftMotor.setPower(-1);
-//            } else {
-//                robot.liftMotor.setPower(0);
-//            }
-//
-//            if (gamepad2.a){
-//                robot.holdMotor.setPower(1.0);
-//            } else if (gamepad2.b) {
-//                robot.holdMotor.setPower(-1.0);
-//            } else {
-//                robot.holdMotor.setPower(0);
-//            }
-//
-//            if (gamepad2.left_bumper) {
-//                robot.basketServo.setPosition(1);
-//            }
+            /////////////Single Button Controls/////////////
+
+            if (gamepad2.right_bumper){
+                robot.catapultMotor.setPower(1);
+            } else {
+                robot.catapultMotor.setPower(0);
+            }
+
+
+
+
+            if (gamepad2.dpad_up){
+                robot.liftMotor.setPower(1);
+            } else if (gamepad2.dpad_down){
+                robot.liftMotor.setPower(-1);
+            } else {
+                robot.liftMotor.setPower(0);
+            }
+
+            if (gamepad2.a){
+                robot.holdMotor.setPower(1.0);
+            } else if (gamepad2.b) {
+                robot.holdMotor.setPower(-1.0);
+            } else {
+                robot.holdMotor.setPower(0);
+            }
+
+            if (gamepad2.left_bumper) {
+                robot.basketServo.setPosition(1);
+            }
+
+            if(gamepad1.start){
+                controlToggle = -1*controlToggle;
+                sleep(250);
+            }
 
         //RECORDING BUTTONS
             if(gamepad1.x) {
@@ -141,9 +157,11 @@ public class holoRecord extends LinearOpMode{
                 sleep(250);
             }
 
+            if (gamepad1.left_stick_x > 0 || gamepad1.left_stick_y > 0 || gamepad1.right_stick_x > 0)  {
+
+            }
+
             //TELEMETRY
-            telemetry.addData("Control Direction", controlToggle);  //writes value of controlToggle
-            idle();                                                 // to telemetry
 
             telemetry.addLine("Joystick Data")
                     .addData("Joy1 X: ", gamepad1.left_stick_x)
@@ -165,6 +183,10 @@ public class holoRecord extends LinearOpMode{
             telemetry.addLine("rightBack")
                     .addData("Ticks: ", rightBackPosition)
                     .addData("Inches: ", rightBackPosition / COUNTS_PER_INCH);
+
+            telemetry.addData("Control Direction", controlToggle);  //writes value of controlToggle
+            idle();                                                 // to telemetry
+
 
         }
 
@@ -189,6 +211,8 @@ public class holoRecord extends LinearOpMode{
             robot.rightFrontMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.leftBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.rightBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
 
         }
 
