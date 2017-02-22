@@ -180,6 +180,11 @@ public class holoRecord extends LinearOpMode{
 
             sleep(1000);
 
+            leftFrontPosition = robot.leftFrontMotor.getCurrentPosition();
+            rightFrontPosition = robot.rightFrontMotor.getCurrentPosition();
+            leftBackPosition = robot.leftBackMotor.getCurrentPosition();
+            rightBackPosition = robot.rightBackMotor.getCurrentPosition();
+
             robot.leftFrontMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.rightFrontMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.leftBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
