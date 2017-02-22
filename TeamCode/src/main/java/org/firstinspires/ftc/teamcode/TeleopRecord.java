@@ -32,12 +32,9 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -49,8 +46,8 @@ import com.qualcomm.robotcore.util.Range;
     Program Further Modified by Thomas and Gabe on 12/29/16
  */
 
-@TeleOp(name="Teleop 2-8-17", group="2017")  // @Autonomous(...) is the other common choice
-public class Teleop_code_2017 extends LinearOpMode {
+@TeleOp(name="Teleop 2-8-17 RECORD", group="2017")  // @Autonomous(...) is the other common choice
+public class TeleopRecord extends LinearOpMode {
 
 
   //  double servoIncrement = .03;
@@ -62,7 +59,17 @@ public class Teleop_code_2017 extends LinearOpMode {
 
     Harderware robot = new Harderware();
 
+    static final double COUNTS_PER_MOTOR_REV = 1120;    // eg: AndyMark NeverRest Motor Encoder
+    static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
+    static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV) /
+            (WHEEL_DIAMETER_INCHES * 3.1415);
+    static final double DRIVE_GEAR_REDUCTION = 2.0;     // This is < 1.0 if geared UP
 
+
+    int leftFrontPosition;
+    int rightFrontPosition;
+    int leftBackPosition;
+    int rightBackPosition;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -169,34 +176,36 @@ public class Teleop_code_2017 extends LinearOpMode {
 */
 //
             /////////////Single Button Controls/////////////
-
-            if (gamepad2.right_bumper){
-                robot.catapultMotor.setPower(1);
-            } else {
-                robot.catapultMotor.setPower(0);
-            }
-
-
-            if (gamepad2.dpad_up){
-                robot.liftMotor.setPower(1);
-            } else if (gamepad2.dpad_down){
-                robot.liftMotor.setPower(-1);
-            } else {
-                robot.liftMotor.setPower(0);
-            }
-
-            if (gamepad2.a){
-                robot.holdMotor.setPower(1.0);
-            } else if (gamepad2.b) {
-                robot.holdMotor.setPower(-1.0);
-            } else {
-                robot.holdMotor.setPower(0);
-            }
-
-            if (gamepad2.left_bumper) {
-                robot.basketServo.setPosition(1);
-            }
+//
+//            if (gamepad2.right_bumper){
+//                robot.catapultMotor.setPower(1);
+//            } else {
+//                robot.catapultMotor.setPower(0);
+//            }
+//
+//
+//            if (gamepad2.dpad_up){
+//                robot.liftMotor.setPower(1);
+//            } else if (gamepad2.dpad_down){
+//                robot.liftMotor.setPower(-1);
+//            } else {
+//                robot.liftMotor.setPower(0);
+//            }
+//
+//            if (gamepad2.a){
+//                robot.holdMotor.setPower(1.0);
+//            } else if (gamepad2.b) {
+//                robot.holdMotor.setPower(-1.0);
+//            } else {
+//                robot.holdMotor.setPower(0);
+//            }
+//
+//            if (gamepad2.left_bumper) {
+//                robot.basketServo.setPosition(1);
+//            }
 /*
+
+
 
 
 
@@ -208,10 +217,79 @@ public class Teleop_code_2017 extends LinearOpMode {
                 robot.buttonServo.setPosition(robot.buttonServo.getPosition() + servoIncrement);
             }
 */
-            telemetry.addData("Control Direction", controlToggle);
-            idle(); // Always call idle() at the bottom of your while(opModeIsActive()) loop
 
+
+            //RECORDING BUTTONS
+            if(gamepad1.x) {
+                startStep();
+                sleep(250);
+            }
+
+            if (gamepad1.y) {
+                endStep();
+                sleep(250);
+            }
+
+
+
+//            //TELEMETRY
+//            telemetry.addData("Control Direction", controlToggle);  //writes value of controlToggle
+//            idle();                                                 // to telemetry
+
+            telemetry.addLine("Joystick Data")
+                    .addData("Joy1 X: ", gamepad1.left_stick_x)
+                    .addData("Joy1 Y: ", -gamepad1.left_stick_y)
+                    .addData("Joy2 X: ", gamepad1.right_stick_x);
+
+            telemetry.addLine("leftFront")
+                    .addData("Ticks: ", leftFrontPosition)
+                    .addData("Inches: ", leftFrontPosition / COUNTS_PER_INCH);
+
+            telemetry.addLine("rightFront")
+                    .addData("Ticks: ", rightFrontPosition)
+                    .addData("Inches: ", rightFrontPosition / COUNTS_PER_INCH);
+
+            telemetry.addLine("leftBack")
+                    .addData("Ticks: ", leftBackPosition)
+                    .addData("Inches: ", leftBackPosition / COUNTS_PER_INCH);
+
+            telemetry.addLine("rightBack")
+                    .addData("Ticks: ", rightBackPosition)
+                    .addData("Inches: ", rightBackPosition / COUNTS_PER_INCH);
+
+            telemetry.update();
+        }
+        }
+
+        public void startStep(){
+
+            //reset encoders on all motors
+            robot.leftFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.rightFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.leftBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.rightBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+
+            sleep(1000);
+
+            leftFrontPosition = robot.leftFrontMotor.getCurrentPosition();
+            rightFrontPosition = robot.rightFrontMotor.getCurrentPosition();
+            leftBackPosition = robot.leftBackMotor.getCurrentPosition();
+            rightBackPosition = robot.rightBackMotor.getCurrentPosition();
+
+            robot.leftFrontMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.rightFrontMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.leftBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.rightBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        }
+
+        public void endStep() {
+
+            leftFrontPosition = robot.leftFrontMotor.getCurrentPosition();
+            rightFrontPosition = robot.rightFrontMotor.getCurrentPosition();
+            leftBackPosition = robot.leftBackMotor.getCurrentPosition();
+            rightBackPosition = robot.rightBackMotor.getCurrentPosition();
 
         }
     }
-}
