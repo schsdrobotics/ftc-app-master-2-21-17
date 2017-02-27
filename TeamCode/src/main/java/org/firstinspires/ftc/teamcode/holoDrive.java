@@ -40,7 +40,13 @@ public class holoDrive extends LinearOpMode{
         int controlToggle = -1;    // either 1 or -1, used to reverse "front" orientation
                                     // of robot
 
-
+        robot.leftFrontMotor.setDirection(DcMotor.Direction.FORWARD);
+        robot.leftBackMotor.setDirection(DcMotor.Direction.FORWARD);
+        robot.rightFrontMotor.setDirection(DcMotor.Direction.FORWARD);
+        robot.rightBackMotor.setDirection(DcMotor.Direction.FORWARD);
+        robot.liftMotor.setDirection(DcMotor.Direction.FORWARD);
+        robot.holdMotor.setDirection(DcMotor.Direction.FORWARD);
+        robot.catapultMotor.setDirection(DcMotor.Direction.FORWARD);
 
 
         // loop until the end of the match (driver presses STOP)
@@ -116,6 +122,11 @@ public class holoDrive extends LinearOpMode{
 
             if (gamepad2.left_bumper) {
                 robot.basketServo.setPosition(1);
+            }
+
+            if(gamepad1.start){
+                controlToggle = -1*controlToggle;
+                sleep(250);
             }
 
 

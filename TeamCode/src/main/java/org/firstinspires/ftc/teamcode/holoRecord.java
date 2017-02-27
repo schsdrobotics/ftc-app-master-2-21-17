@@ -41,13 +41,22 @@ public class holoRecord extends LinearOpMode{
     double leftBackPowerRecord;
     double rightFrontPowerRecord;
     double rightBackPowerRecord;
-
     int recordInterval;
+
+
 
     @Override
     public void runOpMode() throws InterruptedException {
 
         robot.init(hardwareMap);        //get hardware configuration from phones
+
+        robot.leftFrontMotor.setDirection(DcMotor.Direction.FORWARD);
+        robot.leftBackMotor.setDirection(DcMotor.Direction.FORWARD);
+        robot.rightFrontMotor.setDirection(DcMotor.Direction.FORWARD);
+        robot.rightBackMotor.setDirection(DcMotor.Direction.FORWARD);
+        robot.liftMotor.setDirection(DcMotor.Direction.FORWARD);
+        robot.holdMotor.setDirection(DcMotor.Direction.FORWARD);
+        robot.catapultMotor.setDirection(DcMotor.Direction.FORWARD);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();

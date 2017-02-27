@@ -32,12 +32,9 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -106,9 +103,8 @@ public class Teleop_code_2017 extends LinearOpMode {
 
             //Takes values of joysticks for movement of robot
 
-            //Clips motor values so it doesn't try to give it more power than possible
 
-            //strafe =  Range.clip(strafe, -1, 1);
+
 
             if(gamepad1.start){
                 controlToggle = -1*controlToggle;
@@ -147,27 +143,8 @@ public class Teleop_code_2017 extends LinearOpMode {
 
 
 
-            /*
-            If the thought process is correct, not moving the joysticks and pressing the triggers
-            will allow us to strafe. All have the same value, except they are negated in order to
-            use the correct convention of wheel directions when driving. Convention can be changed
-            if inverted, this is only a theoretical section until we figure out a way to strafe and
-            move all at the same time.
-            Edited at 4:41, 10/5/2016
 
-            We work now.
 
-            Edited at 6:32, 10/7/2016
-            */
-
-  /*          if (left == 0 & right == 0) {
-                robot.leftFrontMotor.setPower(-strafe);
-                robot.leftBackMotor.setPower(strafe);
-                robot.rightBackMotor.setPower(-strafe);
-                robot.rightFrontMotor.setPower(strafe);
-                }
-*/
-//
             /////////////Single Button Controls/////////////
 
             if (gamepad2.right_bumper){
@@ -196,18 +173,7 @@ public class Teleop_code_2017 extends LinearOpMode {
             if (gamepad2.left_bumper) {
                 robot.basketServo.setPosition(1);
             }
-/*
 
-
-
-            if (gamepad2.dpad_left){
-                robot.buttonServo.setPosition(robot.buttonServo.getPosition() - servoIncrement);
-            }
-
-            if (gamepad2.dpad_right){
-                robot.buttonServo.setPosition(robot.buttonServo.getPosition() + servoIncrement);
-            }
-*/
             telemetry.addData("Control Direction", controlToggle);
             idle(); // Always call idle() at the bottom of your while(opModeIsActive()) loop
 
