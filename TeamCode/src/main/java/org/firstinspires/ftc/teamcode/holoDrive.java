@@ -42,9 +42,9 @@ public class holoDrive extends LinearOpMode{
 
         robot.leftFrontMotor.setDirection(DcMotor.Direction.FORWARD);
         robot.leftBackMotor.setDirection(DcMotor.Direction.FORWARD);
-        robot.rightFrontMotor.setDirection(DcMotor.Direction.FORWARD);
-        robot.rightBackMotor.setDirection(DcMotor.Direction.FORWARD);
-        robot.liftMotor.setDirection(DcMotor.Direction.FORWARD);
+        robot.rightFrontMotor.setDirection(DcMotor.Direction.FORWARD);     //set all to forward to
+        robot.rightBackMotor.setDirection(DcMotor.Direction.FORWARD);      //allow for correct power
+        robot.liftMotor.setDirection(DcMotor.Direction.FORWARD);           //assignments
         robot.holdMotor.setDirection(DcMotor.Direction.FORWARD);
         robot.catapultMotor.setDirection(DcMotor.Direction.FORWARD);
 

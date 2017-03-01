@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.util.Range;
 
 
 
+
 @TeleOp(name="Holodrive Record", group="2017")
 public class holoRecord extends LinearOpMode{
 
@@ -37,11 +38,7 @@ public class holoRecord extends LinearOpMode{
     private int leftBackPosition;
     private int rightBackPosition;
 
-    double leftFrontPowerRecord;
-    double leftBackPowerRecord;
-    double rightFrontPowerRecord;
-    double rightBackPowerRecord;
-    int recordInterval;
+    int controlToggle = -1;
 
 
 
@@ -52,9 +49,9 @@ public class holoRecord extends LinearOpMode{
 
         robot.leftFrontMotor.setDirection(DcMotor.Direction.FORWARD);
         robot.leftBackMotor.setDirection(DcMotor.Direction.FORWARD);
-        robot.rightFrontMotor.setDirection(DcMotor.Direction.FORWARD);
-        robot.rightBackMotor.setDirection(DcMotor.Direction.FORWARD);
-        robot.liftMotor.setDirection(DcMotor.Direction.FORWARD);
+        robot.rightFrontMotor.setDirection(DcMotor.Direction.FORWARD);  //set all to forward to
+        robot.rightBackMotor.setDirection(DcMotor.Direction.FORWARD);   //allow for correct power
+        robot.liftMotor.setDirection(DcMotor.Direction.FORWARD);        //assignments
         robot.holdMotor.setDirection(DcMotor.Direction.FORWARD);
         robot.catapultMotor.setDirection(DcMotor.Direction.FORWARD);
 
@@ -65,7 +62,7 @@ public class holoRecord extends LinearOpMode{
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
-        int controlToggle = -1;    // either 1 or -1, used to reverse "front" orientation
+            // either 1 or -1, used to reverse "front" orientation
                                     // of robot
 
 
@@ -166,40 +163,11 @@ public class holoRecord extends LinearOpMode{
                 sleep(250);
             }
 
-            if (gamepad1.left_stick_x > 0 || gamepad1.left_stick_y > 0 || gamepad1.right_stick_x > 0)  {
-
-            }
-
-            //TELEMETRY
-
-            telemetry.addLine("Joystick Data")
-                    .addData("Joy1 X: ", gamepad1.left_stick_x)
-                    .addData("Joy1 Y: ", -gamepad1.left_stick_y)
-                    .addData("Joy2 X: ", gamepad1.right_stick_x);
-
-            telemetry.addLine("leftFront")
-                    .addData("Ticks: ", leftFrontPosition)
-                    .addData("Inches: ", leftFrontPosition / COUNTS_PER_INCH);
-
-            telemetry.addLine("rightFront")
-                    .addData("Ticks: ", rightFrontPosition)
-                    .addData("Inches: ", rightFrontPosition / COUNTS_PER_INCH);
-
-            telemetry.addLine("leftBack")
-                    .addData("Ticks: ", leftBackPosition)
-                    .addData("Inches: ", leftBackPosition / COUNTS_PER_INCH);
-
-            telemetry.addLine("rightBack")
-                    .addData("Ticks: ", rightBackPosition)
-                    .addData("Inches: ", rightBackPosition / COUNTS_PER_INCH);
-
-            telemetry.addData("Control Direction", controlToggle);  //writes value of controlToggle
-            idle();                                                 // to telemetry
-
 
         }
 
     }
+
 
         public void startStep(){
 
@@ -221,18 +189,39 @@ public class holoRecord extends LinearOpMode{
             robot.leftBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.rightBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-
-
         }
 
         public void endStep() {
+            telemetry.addLine("Joystick Data")
+                    .addData("Joy1 X: ", gamepad1.left_stick_x)
+                    .addData("Joy1 Y: ", -gamepad1.left_stick_y)
+                    .addData("Joy2 X: ", gamepad1.right_stick_x);
 
-            leftFrontPosition = robot.leftFrontMotor.getCurrentPosition();
-            rightFrontPosition = robot.rightFrontMotor.getCurrentPosition();
-            leftBackPosition = robot.leftBackMotor.getCurrentPosition();
-            rightBackPosition = robot.rightBackMotor.getCurrentPosition();
+            telemetry.addLine("leftFront")
+                    .addData("Ticks: ", leftFrontPosition)
+                    .addData("Inches: ", leftFrontPosition / COUNTS_PER_INCH);
+
+            telemetry.addLine("rightFront")
+                    .addData("Ticks: ", rightFrontPosition)
+                    .addData("Inches: ", rightFrontPosition / COUNTS_PER_INCH);
+
+            telemetry.addLine("leftBack")
+                    .addData("Ticks: ", leftBackPosition)
+                    .addData("Inches: ", leftBackPosition / COUNTS_PER_INCH);
+
+            telemetry.addLine("rightBack")
+                    .addData("Ticks: ", rightBackPosition)
+                    .addData("Inches: ", rightBackPosition / COUNTS_PER_INCH);
+
+
+
+
+
+            telemetry.addData("Control Direction", controlToggle);  //writes value of controlToggle
+            idle();                                                 // to telemetry
 
             telemetry.update();
+
 
         }
 
