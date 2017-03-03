@@ -159,7 +159,7 @@ public class PlaybackTest extends LinearOpMode {
 
             startMotion(speed);
 
-            // keep looping while we are still active, and there is time left, and both motors are running.
+            // keep looping while we are still active, and there is time left, and all motors are running.
             while (opModeIsActive() &&
                     (runtime.seconds() < timeout) &&
                     (robot.leftFrontMotor.isBusy() || robot.leftBackMotor.isBusy() || robot.rightFrontMotor.isBusy() || robot.rightBackMotor.isBusy())) {

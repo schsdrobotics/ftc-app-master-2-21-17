@@ -1,26 +1,39 @@
 package org.firstinspires.ftc.teamcode;
 
+import android.graphics.Path;
+
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.UltrasonicSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import org.firstinspires.ftc.robotcontroller.external.samples.SensorAdafruitRGB;
+
+import org.firstinspires.ftc.robotcontroller.external.samples.SensorAdafruitRGB;
 
 /**
  * This class can be used to define all the specific hardware for a single robot.
  */
 public class Harderware {
     /* Public OpMode members. */
-    DcMotor leftFrontMotor = null;
-    DcMotor leftBackMotor = null;
-    DcMotor rightFrontMotor = null;
-    DcMotor rightBackMotor = null;
-    DcMotor liftMotor = null;
-    DcMotor holdMotor = null;
-    DcMotor catapultMotor = null;
-    Servo basketServo = null;
-    ModernRoboticsI2cGyro gyro    = null;                    // Additional Gyro device
-/*
+    DcMotor leftFrontMotor;
+    DcMotor leftBackMotor;
+    DcMotor rightFrontMotor;
+    DcMotor rightBackMotor;
+    DcMotor liftMotor;
+    DcMotor holdMotor;
+    DcMotor catapultMotor;
+    Servo basketServo;
+    ModernRoboticsI2cGyro gyro;                    // Additional Gyro device
+    UltrasonicSensor ultraSonic;
+    OpticalDistanceSensor leftODS;
+    OpticalDistanceSensor rightODS;
+    ColorSensor colorSensor;
+    Servo colorServo;
+    /*
     DcMotor shootingMotor = null;
     DcMotor sweeperMotor = null;
 
@@ -49,6 +62,12 @@ public class Harderware {
         holdMotor = hwMap.dcMotor.get("holdMotor");
         catapultMotor = hwMap.dcMotor.get("catapultMotor");
         basketServo = hwMap.servo.get("basketServo"); //servo
+        colorServo = hwMap.servo.get("colorServo");
+        ultraSonic = hwMap.ultrasonicSensor.get("uss");
+        leftODS = hwMap.opticalDistanceSensor.get("leftODS");
+        rightODS = hwMap.opticalDistanceSensor.get("rightODS");
+        colorSensor = hwMap.colorSensor.get("color");
+
         /*
         shootingMotor = hwMap.dcMotor.get("shootingMotor");
         sweeperMotor = hwMap.dcMotor.get("sweeperMotor");
