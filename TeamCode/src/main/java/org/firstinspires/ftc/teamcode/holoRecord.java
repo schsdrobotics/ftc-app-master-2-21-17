@@ -143,9 +143,6 @@ public class holoRecord extends LinearOpMode{
                 robot.holdMotor.setPower(0);
             }
 
-            if (gamepad2.left_bumper) {
-                robot.basketServo.setPosition(1);
-            }
 
             if(gamepad1.start){
                 controlToggle = -1*controlToggle;

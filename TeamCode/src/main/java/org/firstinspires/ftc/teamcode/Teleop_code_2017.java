@@ -170,9 +170,7 @@ public class Teleop_code_2017 extends LinearOpMode {
                 robot.holdMotor.setPower(0);
             }
 
-            if (gamepad2.left_bumper) {
-                robot.basketServo.setPosition(1);
-            }
+
 
             telemetry.addData("Control Direction", controlToggle);
             idle(); // Always call idle() at the bottom of your while(opModeIsActive()) loop

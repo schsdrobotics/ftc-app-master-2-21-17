@@ -48,6 +48,10 @@ public class holoDrive extends LinearOpMode{
         robot.holdMotor.setDirection(DcMotor.Direction.FORWARD);
         robot.catapultMotor.setDirection(DcMotor.Direction.FORWARD);
 
+        robot.elevatorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        idle();
+        robot.elevatorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
 
         // loop until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
@@ -103,6 +107,12 @@ public class holoDrive extends LinearOpMode{
                 robot.catapultMotor.setPower(0);
             }
 
+            if (gamepad1.x) {
+                robot.sweeperConinuous.setPower(-1);
+            } else if (gamepad1.y) {
+                robot.sweeperConinuous.setPower(1);
+            } else robot.sweeperConinuous.setPower(0);
+
 
             if (gamepad2.dpad_up){
                 robot.liftMotor.setPower(1);
@@ -120,8 +130,27 @@ public class holoDrive extends LinearOpMode{
                 robot.holdMotor.setPower(0);
             }
 
-            if (gamepad2.left_bumper) {
-                robot.basketServo.setPosition(1);
+
+            if (gamepad2.y){
+                robot.elevatorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.elevatorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                robot.elevatorMotor.setPower(-0.5);
+                while (!robot.bottomLimit.isPressed() && robot.elevatorMotor.getCurrentPosition() <= 2450);
+                robot.elevatorMotor.setPower(0);
+                sleep(1000);
+                robot.elevatorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.elevatorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                robot.elevatorMotor.setPower(0.5);
+                while (!robot.bottomLimit.isPressed() && robot.elevatorMotor.getCurrentPosition() <= 2450);
+                robot.elevatorMotor.setPower(0);
+
+
+//            } else if (gamepad2.x) {
+//                robot.elevatorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//                robot.elevatorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//                robot.elevatorMotor.setPower(0.5);
+//                while (!robot.bottomLimit.isPressed() && robot.elevatorMotor.getCurrentPosition() <= 2450);
+//                robot.elevatorMotor.setPower(0);
             }
 
             if(gamepad1.start){

@@ -3,11 +3,14 @@ package org.firstinspires.ftc.teamcode;
 import android.graphics.Path;
 
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.hardware.UltrasonicSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcontroller.external.samples.SensorAdafruitRGB;
@@ -26,13 +29,19 @@ public class Harderware {
     DcMotor liftMotor;
     DcMotor holdMotor;
     DcMotor catapultMotor;
-    Servo basketServo;
+    DcMotor elevatorMotor;
     ModernRoboticsI2cGyro gyro;                    // Additional Gyro device
     UltrasonicSensor ultraSonic;
     OpticalDistanceSensor leftODS;
     OpticalDistanceSensor rightODS;
-    ColorSensor colorSensor;
+    ColorSensor colorLeft;
+    ColorSensor colorRight;
     Servo colorServo;
+    TouchSensor bottomLimit;
+    TouchSensor topLimit;
+    CRServo sweeperConinuous;
+
+
     /*
     DcMotor shootingMotor = null;
     DcMotor sweeperMotor = null;
@@ -61,12 +70,17 @@ public class Harderware {
         liftMotor = hwMap.dcMotor.get("liftMotor");
         holdMotor = hwMap.dcMotor.get("holdMotor");
         catapultMotor = hwMap.dcMotor.get("catapultMotor");
-        basketServo = hwMap.servo.get("basketServo"); //servo
+        elevatorMotor = hwMap.dcMotor.get("elevatorMotor");
         colorServo = hwMap.servo.get("colorServo");
         ultraSonic = hwMap.ultrasonicSensor.get("uss");
         leftODS = hwMap.opticalDistanceSensor.get("leftODS");
         rightODS = hwMap.opticalDistanceSensor.get("rightODS");
-        colorSensor = hwMap.colorSensor.get("color");
+        colorLeft = hwMap.colorSensor.get("colorLeft");
+        colorRight = hwMap.colorSensor.get("colorRight");
+        bottomLimit = hwMap.touchSensor.get("bottom");
+        topLimit = hwMap.touchSensor.get("top");
+        sweeperConinuous = hwMap.crservo.get("sweeper");
+
 
         /*
         shootingMotor = hwMap.dcMotor.get("shootingMotor");
@@ -79,6 +93,8 @@ public class Harderware {
         leftBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightFrontMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        catapultMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        elevatorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // 2. Set all DC motors to proper rotation direction
         leftFrontMotor.setDirection(DcMotor.Direction.FORWARD);
@@ -88,6 +104,9 @@ public class Harderware {
         liftMotor.setDirection(DcMotor.Direction.FORWARD);
         holdMotor.setDirection(DcMotor.Direction.FORWARD);
         catapultMotor.setDirection(DcMotor.Direction.FORWARD);
+        elevatorMotor.setDirection(DcMotor.Direction.FORWARD);
+
+        sweeperConinuous.setDirection(DcMotorSimple.Direction.FORWARD);
 
         /*
         sweeperMotor.setDirection(DcMotor.Direction.FORWARD);
