@@ -71,7 +71,7 @@ public class Harderware {
         holdMotor = hwMap.dcMotor.get("holdMotor");
         catapultMotor = hwMap.dcMotor.get("catapultMotor");
         elevatorMotor = hwMap.dcMotor.get("elevatorMotor");
-        colorServo = hwMap.servo.get("colorServo");
+      //  colorServo = hwMap.servo.get("colorServo");
         ultraSonic = hwMap.ultrasonicSensor.get("uss");
         leftODS = hwMap.opticalDistanceSensor.get("leftODS");
         rightODS = hwMap.opticalDistanceSensor.get("rightODS");
@@ -80,6 +80,7 @@ public class Harderware {
         bottomLimit = hwMap.touchSensor.get("bottom");
         topLimit = hwMap.touchSensor.get("top");
         sweeperConinuous = hwMap.crservo.get("sweeper");
+        gyro = (ModernRoboticsI2cGyro) hwMap.gyroSensor.get("gyro");
 
 
         /*

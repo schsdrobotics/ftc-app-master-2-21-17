@@ -41,7 +41,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 
-@Autonomous(name = "AutoBeaconRed", group = "2017")
+@Autonomous(name = "AutoBeaconBlue", group = "2017")
 
 public class AutoBeaconBlue extends LinearOpMode {
 
