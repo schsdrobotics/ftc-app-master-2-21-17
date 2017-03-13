@@ -109,6 +109,7 @@ public class holoDrive extends LinearOpMode{
 
             if (gamepad1.x) {
                 robot.sweeperServo.setPower(-1);
+
             } else if (gamepad1.y) {
                 robot.sweeperServo.setPower(1);
             } else robot.sweeperServo.setPower(0);

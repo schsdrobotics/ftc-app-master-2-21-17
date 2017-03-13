@@ -54,11 +54,11 @@ public class Teleop_code_2017 extends LinearOpMode {
 
 
 
+
     /* Declare OpMode members. */
     private ElapsedTime runtime = new ElapsedTime();
 
     Harderware robot = new Harderware();
-
 
 
     @Override

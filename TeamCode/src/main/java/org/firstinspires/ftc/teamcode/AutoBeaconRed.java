@@ -103,26 +103,26 @@ public class AutoBeaconRed extends LinearOpMode {
         //MAIN TASK////////////
 
 
-
-        shootCatapult();
-        elevatorCycle();
-        shootCatapult();
-
-
-        encoderDriveStraight(0.6, 12, 5);
-        gyroTurn(.5, 180);
-        encoderDriveStraight(0.6, -12, 5);
-
-        strafeDiagonalUSS(.8, 8);
-
-        moveToLine(-0.3);
-        colorPick(desiredColor);
-        checkBeacon("RED");
-
-        encoderDriveStraight(.6, 6, 3);
-        moveToLine(0.3);
-        colorPick(desiredColor);
-        checkBeacon("RED");
+            encoderDriveStraight(.6, 12, 5);
+//        shootCatapult();
+//        elevatorCycle();
+//        shootCatapult();
+//
+//
+//        encoderDriveStraight(0.6, 12, 5);
+//        gyroTurn(.5, 180);
+//        encoderDriveStraight(0.6, -12, 5);
+//
+//        strafeDiagonalUSS(.8, 8);
+//
+//        moveToLine(-0.3);
+//        colorPick(desiredColor);
+//        checkBeacon("RED");
+//
+//        encoderDriveStraight(.6, 6, 3);
+//        moveToLine(0.3);
+//        colorPick(desiredColor);
+//        checkBeacon("RED");
 
 
 
