@@ -41,7 +41,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 
-@Autonomous(name = "AutoBeaconBlue", group = "2017")
+@Autonomous(name = "AutoBeaconBlueShoot", group = "2017")
 
 public class AutoBeaconBlue extends LinearOpMode {
 
@@ -106,18 +106,18 @@ public class AutoBeaconBlue extends LinearOpMode {
         elevatorCycle();
         shootCatapult();
 
-        encoderDriveStraight(.6, 12, 5);
-        strafeDiagonalUSS(.8, 8);
-
-        moveToLine(-0.3);
-        colorPick(desiredColor);
-        checkBeacon("BLUE");
-
-
-        encoderDriveStraight(.6, 6, 3);
-        moveToLine(0.3);
-        colorPick(desiredColor);
-        checkBeacon("BLUE");
+//        encoderDriveStraight(.6, 12, 5);
+//        strafeDiagonalUSS(.8, 8);
+//
+//        moveToLine(-0.3);
+//        colorPick(desiredColor);
+//        checkBeacon("BLUE");
+//
+//
+//        encoderDriveStraight(.6, 6, 3);
+//        moveToLine(0.3);
+//        colorPick(desiredColor);
+//        checkBeacon("BLUE");
 
         /**
          * ################################## MOVEMENT END #########################################
@@ -131,7 +131,7 @@ public class AutoBeaconBlue extends LinearOpMode {
         robot.elevatorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.elevatorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.elevatorMotor.setPower(-0.5);
-        while (!robot.bottomLimit.isPressed() && robot.elevatorMotor.getCurrentPosition() <= 2450);
+        while (!robot.topLimit.isPressed() && robot.elevatorMotor.getCurrentPosition() <= 2450);
         robot.elevatorMotor.setPower(0);
         sleep(1000);
         robot.elevatorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -163,7 +163,7 @@ public class AutoBeaconBlue extends LinearOpMode {
         robot.rightFrontMotor.setPower(-speed);
         robot.rightBackMotor.setPower(speed);
 
-        while (robot.ultraSonic.getUltrasonicLevel() < 8);
+        while (robot.ultrasonicSensor.getUltrasonicLevel() < 8);
         endMotion();
     }
 
@@ -245,7 +245,7 @@ public class AutoBeaconBlue extends LinearOpMode {
         robot.leftBackMotor.setPower(0);
         robot.rightFrontMotor.setPower(0);
         robot.rightBackMotor.setPower(Math.abs(speed));
-        while(robot.ultraSonic.getUltrasonicLevel() > distance);
+        while(robot.ultrasonicSensor.getUltrasonicLevel() > distance);
         endMotion();
 
     }

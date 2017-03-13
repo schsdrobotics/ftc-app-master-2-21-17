@@ -31,15 +31,14 @@ public class Harderware {
     DcMotor catapultMotor;
     DcMotor elevatorMotor;
     ModernRoboticsI2cGyro gyro;                    // Additional Gyro device
-    UltrasonicSensor ultraSonic;
+    UltrasonicSensor ultrasonicSensor;
     OpticalDistanceSensor leftODS;
     OpticalDistanceSensor rightODS;
     ColorSensor colorLeft;
     ColorSensor colorRight;
-    Servo colorServo;
     TouchSensor bottomLimit;
     TouchSensor topLimit;
-    CRServo sweeperConinuous;
+    CRServo sweeperServo;
 
 
     /*
@@ -72,14 +71,14 @@ public class Harderware {
         catapultMotor = hwMap.dcMotor.get("catapultMotor");
         elevatorMotor = hwMap.dcMotor.get("elevatorMotor");
       //  colorServo = hwMap.servo.get("colorServo");
-        ultraSonic = hwMap.ultrasonicSensor.get("uss");
+        ultrasonicSensor = hwMap.ultrasonicSensor.get("uss");
         leftODS = hwMap.opticalDistanceSensor.get("leftODS");
         rightODS = hwMap.opticalDistanceSensor.get("rightODS");
         colorLeft = hwMap.colorSensor.get("colorLeft");
         colorRight = hwMap.colorSensor.get("colorRight");
         bottomLimit = hwMap.touchSensor.get("bottom");
         topLimit = hwMap.touchSensor.get("top");
-        sweeperConinuous = hwMap.crservo.get("sweeper");
+        sweeperServo = hwMap.crservo.get("sweeperServo");
         gyro = (ModernRoboticsI2cGyro) hwMap.gyroSensor.get("gyro");
 
 
@@ -107,7 +106,7 @@ public class Harderware {
         catapultMotor.setDirection(DcMotor.Direction.FORWARD);
         elevatorMotor.setDirection(DcMotor.Direction.FORWARD);
 
-        sweeperConinuous.setDirection(DcMotorSimple.Direction.FORWARD);
+        sweeperServo.setDirection(DcMotorSimple.Direction.FORWARD);
 
         /*
         sweeperMotor.setDirection(DcMotor.Direction.FORWARD);

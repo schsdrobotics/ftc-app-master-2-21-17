@@ -108,10 +108,10 @@ public class holoDrive extends LinearOpMode{
             }
 
             if (gamepad1.x) {
-                robot.sweeperConinuous.setPower(-1);
+                robot.sweeperServo.setPower(-1);
             } else if (gamepad1.y) {
-                robot.sweeperConinuous.setPower(1);
-            } else robot.sweeperConinuous.setPower(0);
+                robot.sweeperServo.setPower(1);
+            } else robot.sweeperServo.setPower(0);
 
 
             if (gamepad2.dpad_up){
@@ -135,7 +135,7 @@ public class holoDrive extends LinearOpMode{
                 robot.elevatorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 robot.elevatorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 robot.elevatorMotor.setPower(-0.5);
-                while (!robot.bottomLimit.isPressed() && robot.elevatorMotor.getCurrentPosition() <= 2450);
+                while (!robot.topLimit.isPressed() && robot.elevatorMotor.getCurrentPosition() <= 2450);
                 robot.elevatorMotor.setPower(0);
                 sleep(1000);
                 robot.elevatorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
