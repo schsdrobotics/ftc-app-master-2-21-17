@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import android.graphics.Path;
 
+import com.qualcomm.hardware.adafruit.AdafruitI2cColorSensor;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -41,6 +42,7 @@ public class Harderware {
     CRServo sweeperServo;
 
 
+
     /*
     DcMotor shootingMotor = null;
     DcMotor sweeperMotor = null;
@@ -74,7 +76,7 @@ public class Harderware {
         ultrasonicSensor = hwMap.ultrasonicSensor.get("uss");
         leftODS = hwMap.opticalDistanceSensor.get("leftODS");
         rightODS = hwMap.opticalDistanceSensor.get("rightODS");
-        colorLeft = hwMap.colorSensor.get("colorLeft");
+        colorLeft =  hwMap.colorSensor.get("colorLeft");
         colorRight = hwMap.colorSensor.get("colorRight");
         bottomLimit = hwMap.touchSensor.get("bottom");
         topLimit = hwMap.touchSensor.get("top");
@@ -108,11 +110,14 @@ public class Harderware {
 
         sweeperServo.setDirection(DcMotorSimple.Direction.FORWARD);
 
+
+
         /*
         sweeperMotor.setDirection(DcMotor.Direction.FORWARD);
         */
 
         catapultMotor.setMaxSpeed(375);
+        elevatorMotor.setMaxSpeed(750);
 
         // 3. Set all motors to ZERO power
         leftFrontMotor.setPower(0);

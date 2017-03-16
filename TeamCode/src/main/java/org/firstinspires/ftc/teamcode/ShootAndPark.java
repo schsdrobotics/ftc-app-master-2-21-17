@@ -32,21 +32,17 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package org.firstinspires.ftc.teamcode;
 
-import android.graphics.Color;
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.UltrasonicSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 
-@Autonomous(name = "AutoBeaconRed", group = "2017")
+@Autonomous(name = "ShootAndPark", group = "2017")
 
-public class AutoBeaconRed extends LinearOpMode {
+public class ShootAndPark extends LinearOpMode {
 
     /* Declare OpMode members. */
     Harderware robot = new Harderware();   // Use a Pushbot's hardware
@@ -96,11 +92,6 @@ public class AutoBeaconRed extends LinearOpMode {
         robot.rightFrontMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        robot.leftFrontMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        robot.leftBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        robot.rightFrontMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        robot.rightBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-
 
 
         // Wait for the game to start (driver presses PLAY)
@@ -109,10 +100,13 @@ public class AutoBeaconRed extends LinearOpMode {
         //MAIN TASK////////////
 
 
-        encoderDriveStraight(.6, 12, 5);
-        shootCatapult();
-        elevatorCycle();
-        shootCatapult();
+            encoderDriveStraight(.6, 24, 5);
+            shootCatapult();
+            elevatorUp();
+            sleep(100);
+            shootCatapult();
+            encoderDriveStraight(.6,38,5);
+            elevatorDown();
 //
 //
 //        encoderDriveStraight(0.6, 12, 5);
@@ -142,20 +136,23 @@ public class AutoBeaconRed extends LinearOpMode {
         telemetry.update();
     }
 
-    public void elevatorCycle() {
+    public void elevatorUp() {
         robot.elevatorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.elevatorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.elevatorMotor.setPower(-1);
-        while (!robot.topLimit.isPressed() && robot.elevatorMotor.getCurrentPosition() <= 2450);
+        while (!robot.topLimit.isPressed() && robot.elevatorMotor.getCurrentPosition() >= -2550);
         robot.elevatorMotor.setPower(0);
-        sleep(1000);
-        robot.elevatorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.elevatorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.elevatorMotor.setPower(1);
-        while (!robot.bottomLimit.isPressed() && robot.elevatorMotor.getCurrentPosition() <= 2450);
-        robot.elevatorMotor.setPower(0);
-    }
+        //sleep(1000);
 
+    }
+public void elevatorDown() {
+    robot.elevatorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    robot.elevatorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    robot.elevatorMotor.setPower(1);
+    while (!robot.bottomLimit.isPressed() && robot.elevatorMotor.getCurrentPosition() <= 2550);
+    robot.elevatorMotor.setPower(0);
+
+}
     public void pushButton(double speed, int timeout){
 
 

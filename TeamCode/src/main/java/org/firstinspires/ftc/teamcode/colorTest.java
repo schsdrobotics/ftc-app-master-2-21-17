@@ -72,8 +72,7 @@ public class colorTest extends LinearOpMode {
 
 
         // Set the LED in the beginning
-        robot.colorLeft.enableLed(false);
-        robot.colorRight.enableLed(false);
+
 
         // wait for the start button to be pressed.
         waitForStart();

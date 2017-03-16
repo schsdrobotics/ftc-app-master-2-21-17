@@ -74,15 +74,15 @@ public class holoDrive extends LinearOpMode{
             //  uses rounded value of 1/√2 as calculating it takes too much processing power
 
             if (controlToggle == -1){
-                leftFrontPower = (HORIZONTAL_COEFF * j1x * -0.7071) + (VERTICAL_COEFF * j1y * -0.7071) + (TURN_COEFF * j2x * 1);
-                rightFrontPower = (HORIZONTAL_COEFF * j1x * -0.7071) + (VERTICAL_COEFF * j1y * 0.7071) + (TURN_COEFF * j2x * 1);
-                leftBackPower = (HORIZONTAL_COEFF * j1x * 0.7071) + (VERTICAL_COEFF * j1y * -0.7071) + (TURN_COEFF * j2x * 1);
-                rightBackPower = (HORIZONTAL_COEFF * j1x * 0.7071) + (VERTICAL_COEFF * j1y * 0.7071) + (TURN_COEFF * j2x * 1);
+                leftFrontPower = (HORIZONTAL_COEFF * j1x * 0.7071) + (VERTICAL_COEFF * j1y * -0.7071) + (TURN_COEFF * j2x * 1);
+                rightFrontPower = (HORIZONTAL_COEFF * j1x * 0.7071) + (VERTICAL_COEFF * j1y * 0.7071) + (TURN_COEFF * j2x * 1);
+                leftBackPower = (HORIZONTAL_COEFF * j1x * -0.7071) + (VERTICAL_COEFF * j1y * -0.7071) + (TURN_COEFF * j2x * 1);
+                rightBackPower = (HORIZONTAL_COEFF * j1x * -0.7071) + (VERTICAL_COEFF * j1y * 0.7071) + (TURN_COEFF * j2x * 1);
             } else if (controlToggle == 1) {
-                leftFrontPower = (HORIZONTAL_COEFF * j1x * 0.7071) + (VERTICAL_COEFF * j1y * 0.7071) + (TURN_COEFF * j2x * 1);
-                rightFrontPower = (HORIZONTAL_COEFF * j1x * 0.7071) + (VERTICAL_COEFF * j1y * -0.7071) + (TURN_COEFF * j2x * 1);
-                leftBackPower = (HORIZONTAL_COEFF * j1x * -0.7071) + (VERTICAL_COEFF * j1y * 0.7071) + (TURN_COEFF * j2x * 1);
-                rightBackPower = (HORIZONTAL_COEFF * j1x * -0.7071) + (VERTICAL_COEFF * j1y * -0.7071) + (TURN_COEFF * j2x * 1);
+                leftFrontPower = (HORIZONTAL_COEFF * j1x * -0.7071) + (VERTICAL_COEFF * j1y * 0.7071) + (TURN_COEFF * j2x * 1);
+                rightFrontPower = (HORIZONTAL_COEFF * j1x * -0.7071) + (VERTICAL_COEFF * j1y * -0.7071) + (TURN_COEFF * j2x * 1);
+                leftBackPower = (HORIZONTAL_COEFF * j1x * 0.7071) + (VERTICAL_COEFF * j1y * 0.7071) + (TURN_COEFF * j2x * 1);
+                rightBackPower = (HORIZONTAL_COEFF * j1x * 0.7071) + (VERTICAL_COEFF * j1y * -0.7071) + (TURN_COEFF * j2x * 1);
             }
 
 
@@ -135,14 +135,14 @@ public class holoDrive extends LinearOpMode{
             if (gamepad2.y){
                 robot.elevatorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 robot.elevatorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                robot.elevatorMotor.setPower(-0.5);
-                while (!robot.topLimit.isPressed() && robot.elevatorMotor.getCurrentPosition() <= 2450);
+                robot.elevatorMotor.setPower(-1);
+                while (!robot.topLimit.isPressed() && robot.elevatorMotor.getCurrentPosition() >= -2550);
                 robot.elevatorMotor.setPower(0);
                 sleep(1000);
                 robot.elevatorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 robot.elevatorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                robot.elevatorMotor.setPower(0.5);
-                while (!robot.bottomLimit.isPressed() && robot.elevatorMotor.getCurrentPosition() <= 2450);
+                robot.elevatorMotor.setPower(1);
+                while (!robot.bottomLimit.isPressed() && robot.elevatorMotor.getCurrentPosition() <= 2550);
                 robot.elevatorMotor.setPower(0);
 
 
